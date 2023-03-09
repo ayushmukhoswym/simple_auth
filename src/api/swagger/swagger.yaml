@@ -1,0 +1,134 @@
+swagger: "2.0"
+info:
+  title: Sample NodeJS API
+  description: Optional multiline or single-line description
+  version: 0.1.9
+basePath: "/v2"
+tags:
+  - name: Register
+    description: Register a User
+  - name: Login
+    description: Login a User
+paths:
+  /register:
+    x-swagger-router-controller: register.controller
+    post:
+      tags:
+        - Register
+      summary: Register a User
+      description: ""
+      operationId: register
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Insert Credentials of the User name, email, paswword"
+          required: true
+          schema:
+            $ref: "#/definitions/Register"
+      responses:
+        "201":
+          description: "User Successfully Registered"
+          schema:
+            $ref: "#/definitions/RegisterReturn"
+        "404":
+          description: "User Already Exists"
+        "500":
+          description: "Internal Server Error"
+
+  /login:
+    x-swagger-router-controller: login.controller
+    post:
+      tags:
+        - Login
+      summary: Login a User
+      description: ""
+      operationId: login
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Insert Credentials of the User, email, paswword"
+          required: true
+          schema:
+            $ref: "#/definitions/Login"
+      responses:
+        "200":
+          description: "User Logged In"
+          schema:
+            $ref: "#/definitions/LoginReturn"
+        "400":
+          description: "Incorrect Password"
+        "404":
+          description: "User Dont Exists"
+        "500":
+          description: "Internal Server Error"
+
+definitions:
+  Register:
+    type: object
+    required:
+      - name
+      - email
+      - password
+    properties:
+      name:
+        type: string
+        example: John
+      email:
+        type: string
+        example: a@123.com
+      password:
+        type: string
+        example: AbraKaajshdi
+  Login:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        example: a@123.com
+      password:
+        type: string
+        example: AbraKaajshdi
+
+  RegisterReturn:
+    type: object
+    properties:
+      name:
+        type: string
+        example: John
+      email:
+        type: string
+        example: a@123.com
+      password:
+        type: string
+        example: AbraKaajshdi
+      token:
+        type: string
+
+  LoginReturn:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+        example: a@123.com
+      password:
+        type: string
+        example: AbraKaajshdi
+      token:
+        type: string
+
+securityDefinitions:
+  basicAuth:
+    type: basic

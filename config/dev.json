@@ -1,0 +1,11 @@
+{
+  "port": "80",
+  "baseUrl": "someBaseURL",
+  "dbConfig": {
+    "hostUrl": "localhost:27017",
+    "prefix": "mongodb",
+    "dbName": "Swym",
+    "userName": "devUser1",
+    "password": "swymDev"
+  }
+}
